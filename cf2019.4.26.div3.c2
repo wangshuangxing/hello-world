@@ -1,0 +1,113 @@
+#include <bits/stdc++.h>
+
+typedef long long ll;
+
+using namespace std;
+
+int b[500000],a[500000];
+char s[500000],cc[500000];
+int main()
+{
+    ll n;
+    scanf("%lld",&n);
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d",&b[i]);
+    }
+    int L=0,R=n-1;
+    int j=0,jj=0;
+    int num=0,numj=0;
+    a[-1]=-1;
+    while(L<=R)
+    {
+        int m=max(b[L],b[R]);
+        if(m<=a[j-1])break;
+        if(b[L]==b[R])
+        {
+            long long l=L,r=R;
+            if(l==r)
+            {
+                if(b[R]>a[j-1])
+                {
+                    s[j]='R';
+                    j++;
+                    num++;
+                    R--;
+                }
+            }
+            while(b[r]>b[r+1])
+            {
+                if(r<l)break;
+                cc[jj]='R';
+                jj++;
+                numj++;
+                r--;
+            }
+            l=L,r=R;
+           while(b[l]>b[l-1])
+            {
+                if(l>r)break;
+                s[j]='L';
+                j++;
+                num++;
+                 l++;
+            }
+               break;
+        }
+        else if(b[L]<b[R])
+        {
+            if(b[L]>a[j-1])
+            {
+                a[j]=b[L];
+                s[j]='L';
+                cc[jj]='L';
+                L++;
+                j++;
+                jj++;
+                num++;
+                numj++;
+            }
+            else if(b[R]>a[j-1]){
+                a[j]=b[R];
+                s[j]='R';
+                cc[jj]='R';
+                jj++;
+                numj++;
+                R--;
+                j++;
+                num++;
+            }
+
+        }
+        else if(b[L]>b[R])
+        {
+            if(b[R]>a[j-1])
+            {
+                a[j]=b[R];
+                s[j]='R';
+                cc[jj]='R';
+                R--;
+            }
+            else if(b[L]>a[j-1])
+            {
+                a[j]=b[L];
+                s[j]='L';
+                cc[jj]='L';
+                L++;
+            }
+            jj++;
+            numj++;
+            j++;
+            num++;
+        }
+    }
+    if(j==n)
+        s[j-1]='R';
+    if(jj==n)
+    cc[j-1]='R';
+    if(num>numj&&num<=n)
+    printf("%d\n%s\n",num,s);
+    else
+        printf("%d\n%s\n",numj,cc);
+    return 0;
+}
